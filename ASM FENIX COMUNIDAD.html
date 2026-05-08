@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Fénix Líderes | Trabajo Online Próspero</title>
+    <!-- Bootstrap 5 CSS + Icons + Animaciones suaves -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet">
+    <!-- Font Awesome 6 (gratuito) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&amp;display=swap"
+      rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0f1e; /* fallback oscuro */
+            color: #f0f3fa;
+            scroll-behavior: smooth;
+        }
+
+        /* FONDO DE IMAGEN SUBIDA (ASM BANNER LIMPIO) */
+        /* Se aplica un overlay oscuro para mejorar legibilidad, pero la imagen de fondo es la protagonista */
+        .hero-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            filter: brightness(0.85) contrast(1.05);
+        }
+
+        /* Overlay dinámico para que el texto resalte sobre el fondo */
+        .overlay-dark {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(5, 10, 20, 0.65) 0%, rgba(0, 0, 0, 0.5) 100%);
+            z-index: -1;
+        }
+
+        /* Contenido principal relativo */
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* header logo y marca */
+        .navbar-custom {
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.3s;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #FFD966, #FFB347);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .nav-link {
+            color: #f8f9fa !important;
+            font-weight: 500;
+            margin: 0 0.25rem;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #FFD966 !important;
+            transform: translateY(-2px);
+        }
+
+        /* Hero principal con el espíritu Fénix */
+        .hero-section {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 4rem 0;
+        }
+
+        .hero-title {
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.2;
+            background: linear-gradient(to right, #FFF6E0, #FFD966, #FDBB44);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero-sub {
+            font-size: 1.3rem;
+            font-weight: 400;
+            border-left: 4px solid #FFD966;
+            padding-left: 1rem;
+        }
+
+        .btn-fenix {
+            background: linear-gradient(95deg, #FFB347, #FF8C1A);
+            border: none;
+            color: #0a0f1e;
+            font-weight: 700;
+            padding: 12px 32px;
+            border-radius: 60px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-fenix:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(95deg, #FFC46B, #FFA133);
+            color: #000;
+            box-shadow: 0 12px 25px rgba(255, 180, 70, 0.3);
+        }
+
+        .section-title {
+            font-weight: 800;
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: #FFD966;
+            border-radius: 4px;
+        }
+
+        .card-equipo {
+            background: rgba(20, 25, 40, 0.75);
+            backdrop-filter: blur(10px);
+            border-radius: 32px;
+            border: 1px solid rgba(255, 217, 102, 0.4);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .card-equipo:hover {
+            transform: translateY(-8px);
+            border-color: #FFD966;
+            background: rgba(25, 30, 48, 0.85);
+            box-shadow: 0 25px 40px rgba(0,0,0,0.4);
+        }
+
+        /* imagen circular profesional */
+        .team-img {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #FFD966;
+            padding: 4px;
+            background: #0f121f;
+            transition: 0.3s;
+        }
+
+        .team-name {
+            font-weight: 800;
+            font-size: 1.4rem;
+            margin-top: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .team-role {
+            color: #FFD966;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .info-trabajo {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 48px;
+            padding: 2rem;
+            border: 1px solid rgba(255,220,100,0.5);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #FFD966;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(255,220,100,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.4rem;
+            }
+            .hero-sub {
+                font-size: 1rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .team-img {
+                width: 110px;
+                height: 110px;
+            }
+        }
+    </style>
+  </head>
+  <body>
+    <!-- Imagen de fondo subida: ASM BANNER LIMPIO 2027FIN.png -->
+    <!-- Para que la imagen se muestre correctamente, debemos incluirla desde el archivo proporcionado. 
+         Como el usuario indica "subo imagen de fondo", asumimos que la imagen se llama igual y está en el mismo directorio.         Se declara como fondo fijo. -->
+    <img src="ASM%20BANNER%20LIMPIO%202027FIN.png" alt="Fondo Fénix Líderes" class="hero-bg"
+      onerror="this.onerror=null; this.style.display='none'; document.getElementById('fallback-bg').style.background='radial-gradient(circle at top left, #0a1428, #03060c)'">
+    <div class="overlay-dark"></div>
+    <div class="content-wrapper">
+      <!-- Barra de navegación responsiva -->
+      <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container"> <a class="navbar-brand" href="#"> <i class="fas fa-fire me-2"
+              style="color: #FFB347;"></i> FÉNIX LÍDERES </a> <button class="navbar-toggler"
+            type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
+            aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item"><a class="nav-link" href="#inicio"><i class="fas fa-home me-1"></i>Inicio</a></li>
+              <li class="nav-item"><a class="nav-link" href="#oportunidad"><i class="fas fa-chart-line me-1"></i>Oportunidad</a></li>
+              <li class="nav-item"><a class="nav-link" href="#equipo"><i class="fas fa-users me-1"></i>Equipo</a></li>
+              <li class="nav-item"><a class="nav-link" href="#contacto"><i class="fas fa-envelope me-1"></i>Contacto</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- Sección Hero (inicio) -->
+      <section id="inicio" class="hero-section">
+        <div class="container pt-5 mt-5">
+          <div class="row align-items-center">
+            <div class="col-lg-7 mb-4"> <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill"><i
+                  class="fas fa-globe-americas me-1"></i> Trabajo Online 100%
+                Real</span>
+              <h1 class="hero-title">Construye tu futuro<br>
+                con <span style="color:#FFD966;">ASM</span> &amp; Fénix Líderes</h1>
+              <p class="hero-sub mt-4">Ingresos ilimitados, libertad geográfica
+                y un ecosistema digital próspero. Únete a la revolución del
+                trabajo remoto con respaldo real.</p>
+              <div class="mt-4"> <a href="#oportunidad" class="btn btn-fenix me-3"><i
+                    class="fas fa-rocket me-2"></i>Explorar oportunidad</a> <a
+                  href="#equipo" class="btn btn-outline-light rounded-pill px-4"><i
+                    class="fas fa-user-friends me-2"></i>Conoce a los líderes</a>
+              </div>
+              <div class="row mt-5 g-3">
+                <div class="col-6 col-md-4">
+                  <div class="d-flex align-items-center"><i class="fas fa-check-circle text-warning fs-4 me-2"></i><span>Capacitación
+                      continua</span></div>
+                </div>
+                <div class="col-6 col-md-4">
+                  <div class="d-flex align-items-center"><i class="fas fa-laptop-code text-warning fs-4 me-2"></i><span>Plataforma
+                      propia</span></div>
+                </div>
+                <div class="col-6 col-md-4">
+                  <div class="d-flex align-items-center"><i class="fas fa-chart-simple text-warning fs-4 me-2"></i><span>Ganancias
+                      semanales</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-5 text-center">
+              <div class="info-trabajo"> <i class="fas fa-chalkboard-user fa-3x text-warning mb-3"></i>
+                <h3 class="fw-bold">+2,500</h3>
+                <p>Líderes activos en la red</p>
+                <hr class="bg-warning opacity-50">
+                <p class="mb-0"><i class="fas fa-clock me-1"></i> Modelo
+                  híbrido: autonomía + mentoría <br>
+                  <strong>Ingreso promedio mensual: $3,200 - $8,500 USD</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Sección Oportunidad de negocio -->
+      <section id="oportunidad" class="py-5">
+        <div class="container py-4">
+          <div class="text-center mb-5">
+            <h2 class="section-title d-inline-block">Trabajo online funcional
+              &amp; próspero</h2>
+            <p class="mt-4 lead mx-auto" style="max-width: 800px;">Sin horarios
+              fijos, sin jefes tradicionales. Conecta desde cualquier lugar y
+              construye un negocio digital escalable respaldado por ASM.</p>
+          </div>
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="card h-100 bg-dark bg-opacity-50 border-0 rounded-4 p-3 backdrop-blur"
+                style="background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);">
+                <div class="card-body text-center">
+                  <div class="mb-3"><i class="fas fa-brain fa-3x text-warning"></i></div>
+                  <h4 class="fw-bold">Modelo educativo</h4>
+                  <p>Acceso a academias, webinars y herramientas de crecimiento
+                    personal y financiero. No necesitas experiencia previa.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card h-100 bg-dark bg-opacity-50 border-0 rounded-4 p-3 backdrop-blur"
+                style="background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);">
+                <div class="card-body text-center">
+                  <div class="mb-3"><i class="fas fa-hand-holding-usd fa-3x text-warning"></i></div>
+                  <h4 class="fw-bold">Compensación justa</h4>
+                  <p>Comisiones recurrentes, bonos por rendimiento y programa de
+                    liderazgo. Trabaja desde casa o desde donde quieras.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card h-100 bg-dark bg-opacity-50 border-0 rounded-4 p-3 backdrop-blur"
+                style="background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);">
+                <div class="card-body text-center">
+                  <div class="mb-3"><i class="fas fa-people-arrows fa-3x text-warning"></i></div>
+                  <h4 class="fw-bold">Comunidad global</h4>
+                  <p>Eventos virtuales, grupos de apoyo y mentoría uno a uno.
+                    Somos más de 50 países conectados en la red Fénix.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-5">
+            <div class="col-md-8 mx-auto text-center">
+              <div class="stat-number d-inline-flex gap-5 flex-wrap justify-content-center">
+                <div><span class="stat-number">+140K</span><br>
+                  Miembros formados</div>
+                <div><span class="stat-number">97%</span><br>
+                  Satisfacción</div>
+                <div><span class="stat-number">24/7</span><br>
+                  Soporte activo</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Sección del equipo: 5 personas con fotos simuladas y datos realistas. 
+        Como son fotos mostradas, usamos imágenes placeholder y generamos nombres y roles en el ecosistema Fénix.         El diseño utiliza imágenes generadas desde fuentes gratuitas (ui faces/unsplash) pero adaptadas con estilo redondo.        Para un proyecto local puedes cambiar las URLs por las fotos reales. Se incluye info coherente -->
+      <section id="equipo" class="py-5">
+        <div class="container py-3">
+          <div class="text-center mb-5">
+            <h2 class="section-title d-inline-block">Líderes del futuro</h2>
+            <p class="lead mt-3">El corazón de ASM: 5 profesionales referentes
+              que multiplican su éxito online.</p>
+          </div>
+          <div class="row g-4 justify-content-center">
+            <!-- Persona 1: Isabella Rojas - Directora Estrategia Digital -->
+            <div class="col-lg-4 col-md-6">
+              <div class="card-equipo text-center p-4 h-100">
+                <div class="d-flex justify-content-center"> <img src="Mama.png"
+                    alt="Isabella Rojas" class="team-img" onerror="this.src='https://ui-avatars.com/api/?background=FFD966&amp;color=111&amp;name=IR'">
+                </div>
+                <h5 class="team-name">Claudia Herbas Nogales</h5>
+                <div class="team-role"><i class="fas fa-chart-line me-1"></i>
+                  Directora de Estrategia Digital</div>
+                <p class="mt-3 small px-2">+5 años impulsando equipos remotos.
+                  Especialista en crecimiento orgánico y automatización. Ha
+                  formado más de 300 líderes en mercados hispanos.</p>
+                <img src="1qr%20mam%C3%A1.jpg" alt="" title="qr">
+                <div class="mt-2"><i class="fab fa-linkedin text-warning me-2"></i><i
+                    class="fab fa-instagram text-warning"></i></div>
+              </div>
+            </div>
+            <!-- Persona 2: Mateo Sánchez - Experto en Ventas Consultivas -->
+            <div class="col-lg-4 col-md-6">
+              <div class="card-equipo text-center p-4 h-100">
+                <div class="d-flex justify-content-center"> <img src="Xime.jpeg"
+                    alt="Mateo Sánchez" class="team-img" onerror="this.src='https://ui-avatars.com/api/?background=FFD966&amp;color=111&amp;name=MS'">
+                </div>
+                <h5 class="team-name">Ximena Pérez Herbas</h5>
+                <div class="team-role"><i class="fas fa-chalkboard-user me-1"></i>
+                  Mentora de Ventas</div>
+                <p class="mt-3 small px-2">Top performer en ingresos por 3 años
+                  consecutivos. Ayuda a emprendedores a escalar sus negocios
+                  digitales usando técnicas de persuasion ética.</p>
+                <img src="1qr%20Xime.jpg" alt="">
+                <div class="mt-2"><i class="fab fa-twitter text-warning me-2"></i><i
+                    class="fab fa-youtube text-warning"></i></div>
+              </div>
+            </div>
+            <!-- Persona 3: Camila Wong - Líder Desarrollo de Producto -->
+            <div class="col-lg-4 col-md-6">
+              <div class="card-equipo text-center p-4 h-100">
+                <div class="d-flex justify-content-center"> <img src="chelo4356345.jpg"
+                    alt="Camila Wong" class="team-img" onerror="this.src='https://ui-avatars.com/api/?background=FFD966&amp;color=111&amp;name=CW'">
+                </div>
+                <h5 class="team-name">Marcelo Pérez Herbas</h5>
+                <div class="team-role"><i class="fas fa-microchip me-1"></i>
+                  Head de Innovación</div>
+                <p class="mt-3 small px-2">Creador de la plataforma Fenix
+                  Lideres para ASM Connect. +15 años en tecnología aplicada a
+                  negocios remotos, lidera el ecosistema de herramientas.</p>
+                <img src="1qr%20CHELO.jpg" alt="">
+                <div class="mt-2"><i class="fab fa-github text-warning me-2"></i><i
+                    class="fab fa-linkedin text-warning"></i></div>
+              </div>
+            </div>
+            <!-- Persona 4: Diego Luján - Especialista en Comunidades -->
+            <div class="col-lg-4 col-md-6">
+              <div class="card-equipo text-center p-4 h-100">
+                <div class="d-flex justify-content-center"> <img src="andres.jpeg"
+                    alt="Diego Luján" class="team-img" onerror="this.src='https://ui-avatars.com/api/?background=FFD966&amp;color=111&amp;name=DL'">
+                </div>
+                <h5 class="team-name">Andres Pérez Herbas</h5>
+                <div class="team-role"><i class="fas fa-users-viewfinder me-1"></i>
+                  Community Manager Global</div>
+                <p class="mt-3 small px-2">Conecta a más de 10K miembros en
+                  eventos semanales. Genera engagement y estrategias
+                  colaborativas multiplataforma.</p>
+                <img src="1qr%20ndres.jpg" alt="">
+                <div class="mt-2"><i class="fab fa-discord text-warning me-2"></i><i
+                    class="fab fa-telegram text-warning"></i></div>
+              </div>
+            </div>
+            <!-- Persona 5: Valeria Méndez - Coach de Emprendimiento -->
+            <div class="col-lg-4 col-md-6">
+              <div class="card-equipo text-center p-4 h-100">
+                <div class="d-flex justify-content-center"> <img src="pablo.jpeg"
+                    alt="Valeria Méndez" class="team-img" onerror="this.src='https://ui-avatars.com/api/?background=FFD966&amp;color=111&amp;name=VM'">
+                </div>
+                <h5 class="team-name">Pablo Pérez Herbas</h5>
+                <div class="team-role"> Coach de Lideres del Futuro</div>
+                <p class="mt-3 small px-2">Director general "Fénix Digital". Ha
+                  ayudado a +2000 personas a dar el salto al trabajo online con
+                  resultados sostenibles.</p>
+                <img src="1qr%20Pablo.jpg" alt="">
+                <div class="mt-2"><i class="fab fa-tiktok text-warning me-2"></i><i
+                    class="fab fa-spotify text-warning"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center mt-5">
+            <p class="fst-italic">“El trabajo del futuro es descentralizado,
+              inclusivo y próspero. En ASM construimos líderes que transforman
+              vidas.”</p>
+            <a href="#contacto" class="btn btn-fenix"><i class="fas fa-calendar-alt me-2"></i>Agenda
+              una sesión informativa</a> </div>
+        </div>
+      </section>
+      <!-- Sección testimonio rápido + contacto / Call to Action -->
+      <section id="contacto" class="py-5">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-8">
+              <div class="info-trabajo p-4 p-md-5 text-center"> <i class="fas fa-headset fa-3x text-warning mb-3"></i>
+                <h3 class="fw-bold">¿Listo para ser parte de la red Fénix?</h3>
+                <p>Déjanos tus datos y un asesor se pondrá en contacto para
+                  guiarte en el proceso de adhesión. Sin compromiso, solo
+                  información clara.</p>
+                <a href="tel://69529599"><img src="WhatsApp_icon.png" alt="" style="width: 45px; height: 45px;">69529599</a>
+                <a href="tel://70708292"><img src="WhatsApp_icon.png" alt="" style="width: 45px; height: 45px;">70708292</a>
+                <a href="tel://71483823"><img src="WhatsApp_icon.png" alt="" style="width: 45px; height: 45px;">71483823</a>
+                <a href="tel://65740020"><img src="WhatsApp_icon.png" alt="" style="width: 45px; height: 45px;">65740020</a>
+                <a href="tel://70756609"><img src="WhatsApp_icon.png" alt="" style="width: 45px; height: 45px;">70756609</a>
+                <p class="small text-white-50 mt-3 mb-0"><i class="fas fa-lock me-1"></i>
+                  Tus datos están seguros. Recibirás material informativo en
+                  24h.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Footer -->
+      <footer class="py-4 mt-4">
+        <div class="container text-center">
+          <div class="row">
+            <div class="col-12">
+              <h5 class="fw-bold mb-2"><i class="fas fa-fire text-warning"></i>
+                ASM Fénix Líderes</h5>
+              <p class="mb-2 small">© 2026 - Negocio próspero de trabajo online.
+                Todos los derechos reservados. Innovación y resultados.</p>
+              <div class="mb-2"> <a href="#" class="text-white-50 me-3"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-white-50 me-3"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-white-50 me-3"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="text-white-50"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+              <p class="small text-white-50">Trabajo Remoto | Oportunidad Global
+                | Comunidad Fénix | <a href="https://www.asmtask.org/">Web ASM</a></p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <!-- Bootstrap JS y scripts adicionales -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Pequeña interacción con el formulario (simulacro de alerta para demostrar funcionalidad) -->
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let nombre = document.getElementById('nombre').value.trim();
+            let email = document.getElementById('email').value.trim();
+            if(nombre === "" || email === "") {
+                alert("Por favor completa tu nombre y correo electrónico.");
+                return;
+            }
+            // Simulación de envío exitoso
+            alert(`✨ ¡Gracias ${nombre}! Un líder de ASM se comunicará contigo a la brevedad. Revisa tu bandeja de entrada.`);
+            // Limpiar formulario opcional
+            document.getElementById('contactForm').reset();
+        });
+
+        // Suavizado de desplazamiento para los enlaces de navegación
+        document.querySelectorAll('.nav-link, .btn-outline-light, .btn-fenix[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if(targetId && targetId.startsWith("#") && targetId !== "#") {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+        // Asegurar que no haya conflicto en los botones del hero
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const hash = this.getAttribute('href');
+                if(hash === "#" || hash === "") return;
+                const target = document.querySelector(hash);
+                if(target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+  </body>
+</html>
